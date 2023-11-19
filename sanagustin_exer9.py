@@ -36,3 +36,6 @@ for line in lines:
 file1.close()
 
 print(instructions)
+
+# start of pipelining
+instructions_count = len(instructions)
