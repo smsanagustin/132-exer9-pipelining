@@ -124,7 +124,6 @@ for i in range(len(instructions)):
                             print(read_dict[key])
                             print(write_register)
                             if write_register in read_dict[key]:
-                                print("i:", i+2, end="")
                                 wait_for = key
                                 instructions_to_wait.append(wait_for)
                                 data_hazard = True

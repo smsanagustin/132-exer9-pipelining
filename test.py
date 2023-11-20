@@ -112,7 +112,8 @@ for i in range(len(instructions)):
             # perform other instructions
             for j in range(2, len(stages)):
                 current_instruction.append(stages[j])
-        else: # if there are data hazards, wait for instructions to finish
+        else: 
+            # if there are data hazards, wait for instructions to finish
             start = 5 + i
             max_index = max(data_hazards[i]) # wait only for the nearest instruction
             for j in range(start, len(instructions[max_index])):
@@ -120,16 +121,21 @@ for i in range(len(instructions)):
                 current_instruction.append("S")
  
             # check first if the previous instruction has finished decoding
-            start = 4 + i
-            for j in range(start, len(prev_instruction)):
-                if prev_instruction[j] == "D":
-                    current_instruction.append("D")
-                    break
-                else:
-                    current_instruction.append("S")
-            # perform other stages after stalling
-            for j in range(2, len(stages)):
-                current_instruction.append(stages[j])
+            if prev_instruction.index("D") < len(current_instruction):
+                for j in range(1, len(stages)):
+                    current_instruction.append(stages[j])
+            else:
+                start = len(current_instruction)
+                for j in range(start, len(prev_instruction)):
+                    if prev_instruction[j] == "D":
+                        current_instruction.append("S")
+                        current_instruction.append("D")
+                        break
+                    else:
+                        current_instruction.append("S")
+                # perform other stages after stalling
+                for j in range(2, len(stages)):
+                    current_instruction.append(stages[j])
              
                         
 output_file = open("output.txt", "w")
