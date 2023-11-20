@@ -6,6 +6,10 @@ opcodes = ["add", "mul", "sub", "div"]
 operands_list = []
 lines = file1.readlines()
 
+if (len(lines)) > 20:
+    print("Can only read a maximum of 20 lines!")
+    exit()
+
 # get instructions from input file
 for line in lines:
     # store here the current instruction (opcode, 3 operands)
